@@ -26,20 +26,21 @@ public class Main2Activity extends AppCompatActivity {
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener datee;
     TextView dates;
-    ImageView leftDate,rightDate;
+    ImageView leftDate, rightDate;
     Date cureentdate;
 
+    int maxProgress=100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tv);
-        progressBar=findViewById(R.id.progressBar);
-        seekBar=findViewById(R.id.seekBar);
-progressBar.setProgress(0);
-dates=findViewById(R.id.date);
-leftDate=findViewById(R.id.left_btn);
-rightDate=findViewById(R.id.right_btn);
+        progressBar = findViewById(R.id.progressBar);
+        seekBar = findViewById(R.id.seekBar);
+        progressBar.setProgress(0);
+        dates = findViewById(R.id.date);
+        leftDate = findViewById(R.id.left_btn);
+        rightDate = findViewById(R.id.right_btn);
 
         seekBar.setMax(100);
         progressBar.setMax(100);
@@ -48,7 +49,7 @@ rightDate=findViewById(R.id.right_btn);
         cureentdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
         String dateToStr = format.format(cureentdate);
-
+        seekBar.setMax(1000);
 
 
         dates.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +64,8 @@ rightDate=findViewById(R.id.right_btn);
         rightDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              dates.setText(String.valueOf(incrementDateByOne(cureentdate)));
-                cureentdate=incrementDateByOne(cureentdate);
+                dates.setText(String.valueOf(incrementDateByOne(cureentdate)));
+                cureentdate = incrementDateByOne(cureentdate);
                 String myFormat = "dd/MM/yy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 dates.setText(sdf.format(cureentdate));
@@ -75,13 +76,12 @@ rightDate=findViewById(R.id.right_btn);
             @Override
             public void onClick(View v) {
                 dates.setText(String.valueOf(decrementDateByOne(cureentdate)));
-                cureentdate=decrementDateByOne(cureentdate);
+                cureentdate = decrementDateByOne(cureentdate);
                 String myFormat = "dd/MM/yy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 dates.setText(sdf.format(cureentdate));
             }
         });
-
 
 
         datee = new DatePickerDialog.OnDateSetListener() {
@@ -100,7 +100,21 @@ rightDate=findViewById(R.id.right_btn);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressBar.setProgress(progress);
+
+                if (progress>maxProgress){
+                    progress=progress-maxProgress;
+                    progressBar.setProgressDrawable(getDrawable(R.drawable.more_max_progress));
+                    progressBar.setProgress(progress);
+                    dates.setText(String.valueOf(progress));
+                }
+                else if(progress<maxProgress){
+
+                    progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
+                    progressBar.setProgress(progress);
+                    dates.setText(String.valueOf(progress));
+                }
+                else
+                    progressBar.setProgress(progress);
             }
 
             @Override
@@ -132,11 +146,6 @@ rightDate=findViewById(R.id.right_btn);
         return nextDate;
     }
 
-    /**
-     * Get previous date from current selected date
-     *
-     * @param date date
-     */
     public Date decrementDateByOne(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);

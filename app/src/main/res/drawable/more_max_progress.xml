@@ -7,12 +7,26 @@
             android:shape="ring"
             android:thicknessRatio="10.0"
             android:useLevel="false">
-            <solid android:color="@color/grey" />
+            <gradient
+                android:centerColor="@color/oraange"
+                android:endColor="@color/red"
+                android:startColor="@color/yellow"
+                android:type="sweep" />
             <stroke android:color="@color/red" />
         </shape>
 
     </item>
-
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="oval">
+                <corners android:radius="5dp" />
+                <gradient
+                    android:angle="270"
+                    android:endColor="@color/colorAccent"
+                    android:startColor="@color/colorAccent" />
+            </shape>
+        </clip>
+    </item>
 
     <item android:id="@android:id/progress">
 
@@ -26,12 +40,10 @@
                 android:shape="ring"
                 android:thicknessRatio="10.0"
                 android:useLevel="true">
-                <corners android:radius="100dp"/>
                 <gradient
-                    android:gradientRadius="30"
-                    android:centerColor="@color/oraange"
-                    android:endColor="@color/red"
-                    android:startColor="@color/yellow"
+                    android:centerColor="@color/colorAccent"
+                    android:endColor="@color/colorAccent"
+                    android:startColor="@color/colorAccent"
                     android:type="sweep" />
             </shape>
         </rotate>
