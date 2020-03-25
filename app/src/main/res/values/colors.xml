@@ -7,5 +7,10 @@
     <color name="grey">#7E7878</color>
     <color name="red">#F44336</color>
     <color name="oraange">#FF5722</color>
-    <color name="yellow">#FF9800</color>
+    <color name="yellow">#FFFF88</color>
+
+    <color name="black">#000000</color>
+
+    <color name="holo_blue_bright">#00BCD4</color>
+    <color name="holo_blue_dark">#3F51B5</color>
 </resources>

@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity {
 
-    ProgressBar progressBar;
+    MyProgress progressBar;
     SeekBar seekBar;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener datee;
@@ -43,7 +43,8 @@ public class Main2Activity extends AppCompatActivity {
         rightDate = findViewById(R.id.right_btn);
 
         seekBar.setMax(100);
-        progressBar.setMax(100);
+      //  progressBar.setMax(100);
+        progressBar.setPrimaryProgressColor(R.color.red);
         myCalendar = Calendar.getInstance();
 
         cureentdate = new Date();
@@ -100,21 +101,25 @@ public class Main2Activity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                progressBar.setPrimaryProgressColor(R.color.red);
                 if (progress>maxProgress){
-                    progress=progress-maxProgress;
-                    progressBar.setProgressDrawable(getDrawable(R.drawable.more_max_progress));
+                   progressBar.colorreset();
+                    Toast.makeText(Main2Activity.this, "reached", Toast.LENGTH_SHORT).show();
+                 progress=progress-maxProgress;
+                  //  progressBar.setProgressDrawable(getDrawable(R.drawable.more_max_progress));
                     progressBar.setProgress(progress);
                     dates.setText(String.valueOf(progress));
                 }
                 else if(progress<maxProgress){
 
-                    progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
-                    progressBar.setProgress(progress);
+               //     progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
+                  //  progressBar.setProgress(progress);
+                    progressBar.setSecondaryProgress(progress);
                     dates.setText(String.valueOf(progress));
                 }
                 else
-                    progressBar.setProgress(progress);
+                    Toast.makeText(Main2Activity.this, "", Toast.LENGTH_SHORT).show();
+                   // progressBar.setProgress(progress);
             }
 
             @Override
@@ -154,3 +159,5 @@ public class Main2Activity extends AppCompatActivity {
         return previousDate;
     }
 }
+
+
