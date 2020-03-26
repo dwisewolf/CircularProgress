@@ -26,10 +26,10 @@ public class MyProgress extends View {
     private boolean mDrawText = false;
 
     int[] colors = {
-            0xFFFFFF88, // yellow
-            0xFFFF5722, // blue
-            0xFFF44336,
-            0xFFF44336
+            0xFFFF5B31, // yellow
+            0xFFFF2663, // blue
+            0xFFFF2663,
+            0xFFFF2663
     };
 
     int[] colorss = {
@@ -135,7 +135,7 @@ public class MyProgress extends View {
         mSecondaryPaint.setStrokeWidth(mStrokeWidth - 2);
         mSecondaryPaint.setColor(mSecondaryProgressColor);
 
-        float[] positions = {0.0f, 0.3f,0.9f, 1.0f};
+        float[] positions = {0.0f, 0.6f,0.9f, 1.0f};
         mSecondaryPaint.setShader(new SweepGradient(250, 0, colors, positions));
 
         mTextPaint = new TextPaint();
@@ -298,7 +298,7 @@ public class MyProgress extends View {
         mBackgroundPaint.setStrokeWidth(mStrokeWidth);
         mBackgroundPaint.setColor(mBackgroundColor);
 
-        float[] positions = {0.0f, 0.3f,0.9f, 1.0f};
+        float[] positions = {0.0f, 0.6f,0.9f, 1.0f};
         mBackgroundPaint.setShader(new SweepGradient(250, 0, colors, positions));
     }
 }

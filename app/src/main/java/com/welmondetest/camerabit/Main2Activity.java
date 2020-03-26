@@ -46,7 +46,8 @@ public class Main2Activity extends AppCompatActivity {
       //  progressBar.setMax(100);
         progressBar.setPrimaryProgressColor(R.color.red);
         myCalendar = Calendar.getInstance();
-
+progressBar.setPrimaryCapSize(0);
+progressBar.setSecondaryCapSize(0);
         cureentdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
         String dateToStr = format.format(cureentdate);
@@ -103,6 +104,8 @@ public class Main2Activity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressBar.setPrimaryProgressColor(R.color.red);
                 if (progress>maxProgress){
+                    progressBar.setPrimaryCapSize(21);
+
                    progressBar.colorreset();
                     Toast.makeText(Main2Activity.this, "reached", Toast.LENGTH_SHORT).show();
                  progress=progress-maxProgress;
@@ -112,6 +115,7 @@ public class Main2Activity extends AppCompatActivity {
                 }
                 else if(progress<maxProgress){
 
+                    progressBar.setSecondaryCapSize(21);
                //     progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
                   //  progressBar.setProgress(progress);
                     progressBar.setSecondaryProgress(progress);
