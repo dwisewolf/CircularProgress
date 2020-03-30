@@ -1,15 +1,14 @@
 package com.welmondetest.camerabit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +18,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Main2Activity extends AppCompatActivity {
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link Home#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class Home extends Fragment {
     MyProgress progressBar;
     SeekBar seekBar;
     Calendar myCalendar;
@@ -31,19 +35,60 @@ public class Main2Activity extends AppCompatActivity {
 
     int maxProgress=100;
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public Home() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Home.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Home newInstance(String param1, String param2) {
+        Home fragment = new Home();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tv);
-        progressBar = findViewById(R.id.progressBar);
-        seekBar = findViewById(R.id.seekBar);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.tv, container, false);
+        progressBar = root.findViewById(R.id.progressBar);
+        seekBar = root.findViewById(R.id.seekBar);
         progressBar.setProgress(0);
-        dates = findViewById(R.id.date);
-        leftDate = findViewById(R.id.left_btn);
-        rightDate = findViewById(R.id.right_btn);
+        dates = root.findViewById(R.id.date);
+        leftDate = root.findViewById(R.id.left_btn);
+        rightDate = root.findViewById(R.id.right_btn);
 
         seekBar.setMax(100);
-      //  progressBar.setMax(100);
+        //  progressBar.setMax(100);
         progressBar.setPrimaryProgressColor(R.color.red);
         myCalendar = Calendar.getInstance();
         progressBar.setPrimaryCapSize(0);
@@ -53,11 +98,10 @@ public class Main2Activity extends AppCompatActivity {
         String dateToStr = format.format(cureentdate);
         seekBar.setMax(1000);
 
-
         dates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(Main2Activity.this, datee, myCalendar
+                new DatePickerDialog(getContext(), datee, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -99,8 +143,6 @@ public class Main2Activity extends AppCompatActivity {
                 updateLabel();
             }
         };
-
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -108,24 +150,25 @@ public class Main2Activity extends AppCompatActivity {
                 if (progress>maxProgress){
                     progressBar.setPrimaryCapSize(21);
 
-                   progressBar.colorreset();
-                    Toast.makeText(Main2Activity.this, "reached", Toast.LENGTH_SHORT).show();
-                 progress=progress-maxProgress;
-                  //  progressBar.setProgressDrawable(getDrawable(R.drawable.more_max_progress));
+                    progressBar.colorreset();
+                    Toast.makeText(getContext(), "reached", Toast.LENGTH_SHORT).show();
+                    progress=progress-maxProgress;
+                    //  progressBar.setProgressDrawable(getDrawable(R.drawable.more_max_progress));
                     progressBar.setProgress(progress);
                     dates.setText(String.valueOf(progress));
                 }
                 else if(progress<maxProgress){
 
                     progressBar.setSecondaryCapSize(21);
-               //     progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
-                  //  progressBar.setProgress(progress);
+                    //     progressBar.setProgressDrawable(getDrawable(R.drawable.custom_progressbar_drawable));
+                    //  progressBar.setProgress(progress);
                     progressBar.setSecondaryProgress(progress);
                     dates.setText(String.valueOf(progress));
                 }
                 else
-                    Toast.makeText(Main2Activity.this, "", Toast.LENGTH_SHORT).show();
-                   // progressBar.setProgress(progress);
+                    Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                     
+                // progressBar.setProgress(progress);
             }
 
             @Override
@@ -138,6 +181,9 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+
+
+        return inflater.inflate(R.layout.tv, container, false);
     }
 
     private void updateLabel() {
@@ -165,5 +211,3 @@ public class Main2Activity extends AppCompatActivity {
         return previousDate;
     }
 }
-
-
